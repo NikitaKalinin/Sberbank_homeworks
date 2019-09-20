@@ -25,9 +25,14 @@ public class Device {
     }
 
     public void setComponentStatus(Integer componentId, Boolean status){
-        Boolean prev_status = this.components.get(componentId).getStatus();
-        this.components.get(componentId).setStatus(status);
-        checkStatus(status, prev_status);
+        try {
+            Boolean prev_status = null;
+            prev_status = this.components.get(componentId).getStatus();
+            this.components.get(componentId).setStatus(status);
+            checkStatus(status, prev_status);
+        } catch (NullPointerException e) {
+            logger.error(String.format("У %s нет компонента с id = %d", this.name, componentId));
+        }
     }
 
     public void checkStatus(Boolean currStatus, Boolean prevStatus){

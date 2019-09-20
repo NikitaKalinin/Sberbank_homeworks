@@ -9,7 +9,7 @@ public class Main {
         mobile.addComponent(battery);
         mobile.addComponent(wifi);
         Devices.getDevices().put(1, mobile);
-        Event error1 = new ErrorEvent(1, 1);
+        Event error1 = new ErrorEvent(1, 4);
         Event ok1 = new RestoreEvent(1, 2);
         Event error2 = new ErrorEvent(1, 3);
         Event ok2 = new RestoreEvent(1, 2);
