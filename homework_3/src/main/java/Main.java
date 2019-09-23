@@ -13,16 +13,21 @@ public class Main {
         //1 Задание
         TestSerializable inSerializable = new TestSerializable(234234, "sfsdfsdf");
         System.out.println(inSerializable.toString());
+
         // Сериализация
-        FileOutputStream outputStream = new FileOutputStream("./file");
-        ObjectOutputStream objectOutputStream = new ObjectOutputStream(outputStream);
-        objectOutputStream.writeObject(inSerializable);
-        objectOutputStream.close();
+        try( FileOutputStream outputStream = new FileOutputStream("./file");
+             ObjectOutputStream objectOutputStream = new ObjectOutputStream(outputStream))
+        {
+            objectOutputStream.writeObject(inSerializable);
+        }
+
         // Десериализация
-        FileInputStream inputStream = new FileInputStream("./file");
-        ObjectInputStream objectInputStream = new ObjectInputStream(inputStream);
-        TestSerializable outSerializble = (TestSerializable) objectInputStream.readObject();
-        objectOutputStream.close();
+        TestSerializable outSerializble = null;
+        try ( FileInputStream inputStream = new FileInputStream("./file");
+              ObjectInputStream objectInputStream = new ObjectInputStream(inputStream))
+        {
+            outSerializble = (TestSerializable) objectInputStream.readObject();
+        }
 
         System.out.println(outSerializble.toString());
         // Сравнение на == и equals
@@ -46,10 +51,9 @@ public class Main {
         // Если число заканчивается на 8, то выбрасываю исключение
         try {
             fib.getFibNumberLastNot8(6);
-        } catch (LastNot8 e){
+        } catch (LastNot8Exception e){
             System.out.println(e.getMessage());
         }
-
         // 3 Задание
         Field field = Main.class.getDeclaredField("list");
         ParameterizedType listType = (ParameterizedType) field.getGenericType();

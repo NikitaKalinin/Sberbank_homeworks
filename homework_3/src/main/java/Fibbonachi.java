@@ -14,9 +14,9 @@ public class Fibbonachi {
     public int getFibNumber(int n) throws RecursiveException{
         return getFibNumber(n, 0);
     }
-    public int getFibNumberLastNot8(int n) throws LastNot8{
+    public int getFibNumberLastNot8(int n) throws LastNot8Exception{
         int fibNumber = getFibNumber(n);
-        if (fibNumber % 10 == 8) throw new LastNot8();
+        if (fibNumber % 10 == 8) throw new LastNot8Exception();
         return fibNumber;
     }
 }
